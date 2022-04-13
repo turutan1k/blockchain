@@ -1,20 +1,18 @@
 const crypto = require("crypto"),
-
+  SHA256 = (message) =>
+    crypto.createHash("sha256").update(message).digest("hex");
 
 class Block {
   constructor(timestamp = "", data = []) {
-    this.timestamp = timestamp; //Временная метка
-    this.data = data; //Данные
-    this.hash = getHash(); //Хеш
-    this.prevHash = ""; //Предыдущий хеш
+    this.timestamp = timestamp;
+    this.data = data;
+    this.hash = this.getHash();
+    this.prevHash = "";
   }
-
   getHash() {
-    return SHA256(THIS.prevHash + this.timestamp + JSON.stringify(this.data));
+    return SHA256(this.prevHash + this.timestamp + JSON.stringify(this.data));
   }
 }
-
-  SHA = (message) => crypto.createHash("sha256").update(message).digest("hex");
 
 class Blockchain {
   constructor() {
@@ -47,4 +45,4 @@ class Blockchain {
   }
 }
 
-module.exports = {Block, Blockchain}
+module.exports = { Block, Blockchain };
